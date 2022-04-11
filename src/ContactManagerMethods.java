@@ -1,3 +1,5 @@
+package src;
+
 import org.w3c.dom.ls.LSOutput;
 
 import java.io.IOException;
@@ -11,10 +13,10 @@ import java.util.Scanner;
 
 public class ContactManagerMethods {
     public Path contactsPath = Paths.get("data", "Contacts.txt");
-    List<String> contactsData = null;
+    List<String> contactsData = addToList();
 
-
-    protected void displayContacts(){
+    //populates the contactsList with data from the Contacts.txt file
+    protected List<String> addToList(){
         try {
             if (Files.notExists(contactsPath)) Files.createDirectories(contactsPath);
             contactsData = Files.readAllLines(contactsPath);
@@ -22,11 +24,19 @@ public class ContactManagerMethods {
             System.out.println("File or Directory could not be created.");
             e.printStackTrace();
         }
+        return contactsData;
+    }
+
+    //loops through the contactsData List and displays information to the page
+    protected void displayContacts(){
+        System.out.println("====================");
         for (String line : contactsData) {
             System.out.println(line);
         }
+        System.out.println("====================");
     }
 
+    //writes file using contactsPath and contactsData
     public boolean writeFile(){
         try {
             Files.write(contactsPath, contactsData);
@@ -39,14 +49,6 @@ public class ContactManagerMethods {
     }
 
     protected List<String> addContact(String newContact){
-        try {
-            if (Files.notExists(contactsPath)) Files.createDirectories(contactsPath);
-            contactsData = Files.readAllLines(contactsPath);
-        } catch(IOException e){
-            System.out.println("File or Directory could not be created.");
-            e.printStackTrace();
-        }
-
         contactsData.add(newContact);
         writeFile();
         return contactsData;
