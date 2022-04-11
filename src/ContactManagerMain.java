@@ -1,22 +1,18 @@
 package src;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 import java.util.Scanner;
 
 public class ContactManagerMain{
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
         //instantiates ContactManagerMethods for the utility functions
         ContactManagerMethods utilities = new ContactManagerMethods();
         //scanner for user input
         Scanner sc1 = new Scanner(System.in);
-        Scanner sc2 = new Scanner(System.in);
+        //initial declaration to hold the users input as an int
         int userInput;
-        String newContact;
+
+        //do while loop will prompt the user for an int input and then run the method desired
         do {
             System.out.println("1. View Contacts");
             System.out.println("2. Add a New Contact");
@@ -25,29 +21,18 @@ public class ContactManagerMain{
             System.out.println("5. Exit");
             System.out.println("Enter an option 1, 2, 3, 4, 5");
 
+            //assigning the value of the userInput to declared variable within scope
             userInput = sc1.nextInt();
-
-            if(userInput == 1) utilities.displayContacts();
-
-
-            else if (userInput == 2) {
-                System.out.println("Please enter your new contacts information.");
-                newContact = sc2.nextLine();
-                utilities.addContact(newContact);
+                //conditionals take users input and run desired method and catch error if userInput is invalid
+                if (userInput == 1) utilities.displayContacts();
+                else if (userInput == 2) utilities.addContact();
+                else if (userInput == 3) utilities.searchContact();
+                else if (userInput == 4) utilities.deleteContact();
+                else if (userInput == 5) System.out.println("Goodbye!");
+                else System.out.println("Invalid Input");
             }
 
-
-            else if (userInput == 3) {
-                System.out.println("Search contacts");
-                utilities.searchContact();
-            }
-            else if (userInput == 4) utilities.deleteContact();
-
-            else if (userInput == 5) System.out.println("Goodbye!");
-
-            else System.out.println("Invalid Input");
-        }
-        while (userInput != 5);
-
+            //loop is exited if userInput equals 5
+            while (userInput != 5) ;
     }
 }

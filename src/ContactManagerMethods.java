@@ -1,19 +1,16 @@
 package src;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 
 public class ContactManagerMethods {
-    public Path contactsPath = Paths.get("data", "Contacts.txt");
-    List<String> contactsData = addToList();
+    private Path contactsPath = Paths.get("data", "Contacts.txt");
+    private List<String> contactsData = addToList();
 
     //populates the contactsList with data from the Contacts.txt file
     protected List<String> addToList(){
@@ -48,13 +45,18 @@ public class ContactManagerMethods {
         return true;
     }
 
-    protected List<String> addContact(String newContact){
+    //prompts the user for an input and then adds to the list
+    protected List<String> addContact(){
+        System.out.println("Please enter your new contacts information.");
+        Scanner sc = new Scanner(System.in);
+        String newContact = sc.nextLine();
         contactsData.add(newContact);
         writeFile();
         return contactsData;
     }
 
     public void searchContact() {
+        System.out.println("Which contact are you looking for?");
         Scanner sc3 = new Scanner(System.in);
         String searchContact = sc3.nextLine();
         List<String> displayedContact = null;
@@ -63,14 +65,17 @@ public class ContactManagerMethods {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("====================");
         for (String Line : displayedContact) {
-            if (Line.toLowerCase().contains(searchContact)) {
+            if (Line.toLowerCase().contains(searchContact.toLowerCase())) {
                 System.out.println(Line);
             }
         }
+        System.out.println("====================");
     }
 
     public void deleteContact() throws IOException {
+        System.out.println("Which contact would you like to delete?");
         contactsData = Files.readAllLines(contactsPath);
 
         Scanner sc = new Scanner(System.in);
