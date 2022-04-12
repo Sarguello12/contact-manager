@@ -34,7 +34,7 @@ public class ContactManagerMethods {
     }
 
     //writes file using contactsPath and contactsData
-    public boolean writeFile(){
+    protected boolean writeFile(){
         try {
             Files.write(contactsPath, contactsData);
         } catch(IOException e){
@@ -55,11 +55,13 @@ public class ContactManagerMethods {
         return contactsData;
     }
 
-    public void searchContact() {
+    //allows the user to search through the list of contacts and display a specific contact to the console
+    protected void searchContact() {
         System.out.println("Which contact are you looking for?");
         Scanner sc3 = new Scanner(System.in);
         String searchContact = sc3.nextLine();
         List<String> displayedContact = null;
+
         try {
             displayedContact = Files.readAllLines(contactsPath);
         } catch (IOException e) {
@@ -74,16 +76,13 @@ public class ContactManagerMethods {
         System.out.println("====================");
     }
 
-    public void deleteContact() throws IOException {
+    //allows the user to delete a contact inputted bt the user
+    protected void deleteContact() throws IOException {
         System.out.println("Which contact would you like to delete?");
         contactsData = Files.readAllLines(contactsPath);
-
         Scanner sc = new Scanner(System.in);
         String deletePerson = sc.next();
-
         contactsData.removeIf(contactsData -> contactsData.toLowerCase().contains(deletePerson.toLowerCase()));
-
         Files.write(contactsPath, contactsData);
     }
-
 }
