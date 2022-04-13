@@ -64,16 +64,17 @@ public class ContactManagerMethods {
 
         try {
             displayedContact = Files.readAllLines(contactsPath);
+            System.out.println("====================");
+            for (String Line : displayedContact) {
+                if (Line.toLowerCase().contains(searchContact.toLowerCase())) {
+                    System.out.println(Line);
+                }
+            }
+            System.out.println("====================");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("====================");
-        for (String Line : displayedContact) {
-            if (Line.toLowerCase().contains(searchContact.toLowerCase())) {
-                System.out.println(Line);
-            }
-        }
-        System.out.println("====================");
+
     }
 
     //allows the user to delete a contact inputted bt the user
