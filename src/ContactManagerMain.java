@@ -8,7 +8,7 @@ public class ContactManagerMain{
         //instantiates ContactManagerMethods for the utility functions
         ContactManagerMethods utilities = new ContactManagerMethods();
         //scanner for user input
-        Scanner sc1 = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         //initial declaration to hold the users input as an int
         int userInput;
         //do while loop will prompt the user for an int input and then run the method desired
@@ -20,7 +20,7 @@ public class ContactManagerMain{
             System.out.println("5. Exit");
             System.out.println("Enter an option 1, 2, 3, 4, 5");
             //assigning the value of the userInput to declared variable within scope
-            userInput = sc1.nextInt();
+            userInput = sc.nextInt();
                 //conditionals take users input and run desired method and catch error if userInput is invalid
                 if (userInput == 1) utilities.displayContacts();
                 else if (userInput == 2) utilities.addContact();

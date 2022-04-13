@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 
 public class ContactManagerMethods {
-    private Path contactsPath = Paths.get("data", "Contacts.txt");
+    private final Path contactsPath = Paths.get("data", "Contacts.txt");
     private List<String> contactsData = addToList();
 
     //populates the contactsList with data from the Contacts.txt file
@@ -60,16 +60,24 @@ public class ContactManagerMethods {
         System.out.println("Which contact are you looking for?");
         Scanner sc3 = new Scanner(System.in);
         String searchContact = sc3.nextLine();
-        List<String> displayedContact = null;
+        List<String> displayedContact;
 
         try {
             displayedContact = Files.readAllLines(contactsPath);
             System.out.println("====================");
+            int failedTries = 0;
+
             for (String Line : displayedContact) {
-                if (Line.toLowerCase().contains(searchContact.toLowerCase())) {
-                    System.out.println(Line);
+                    if (Line.toLowerCase().contains(searchContact.toLowerCase())) {
+                        System.out.println(Line);
+                    } else {
+                        failedTries++;
+                        if(failedTries == displayedContact.size()){
+                            System.out.println("Sorry that contact does not exist");
+                        }
+                    }
                 }
-            }
+
             System.out.println("====================");
         } catch (IOException e) {
             e.printStackTrace();
