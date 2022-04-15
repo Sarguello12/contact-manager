@@ -86,12 +86,17 @@ public class ContactManagerMethods {
     }
 
     //allows the user to delete a contact inputted bt the user
-    protected void deleteContact() throws IOException {
+    protected void deleteContact(){
         System.out.println("Which contact would you like to delete?");
-        contactsData = Files.readAllLines(contactsPath);
         Scanner sc = new Scanner(System.in);
         String deletePerson = sc.next();
-        contactsData.removeIf(contactsData -> contactsData.toLowerCase().contains(deletePerson.toLowerCase()));
-        Files.write(contactsPath, contactsData);
+
+        try {
+            contactsData = Files.readAllLines(contactsPath);
+            contactsData.removeIf(contactsData -> contactsData.toLowerCase().contains(deletePerson.toLowerCase()));
+            Files.write(contactsPath, contactsData);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
